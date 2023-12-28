@@ -1,6 +1,6 @@
 #include "Yams.h"
 
-Yams::Yams() : finished(false){
+Yams::Yams() : finished(false), ITcurrentPlayer(players.begin()){
     
 }
 
@@ -35,9 +35,27 @@ void Yams::launchGame(){
         std::cout << "There are 13 rounds.\n\n";
     }
 
+    setPlayers();
+    ITcurrentPlayer = players.begin();
+
+    int turnNb = players.size();
+    for(int i = 0 ; i < turnNb ; i++){
+        playTurn();
+        ++ITcurrentPlayer;
+    }
 }
 
 void Yams::setPlayers(){
+    std::string pName = "";
+    while(players.empty() && pName != ""){
+        std::cout << "Enter player's name (nothing to stop adding players) : ";
+        std::cin >> pName;
+
+        if(pName != ""){
+            Player p(pName);
+            players.push_back(p);
+        }
+    }
     
 }
 
@@ -48,3 +66,4 @@ void Yams::playTurn(){
 void Yams::saveGame(){
     
 }
+
