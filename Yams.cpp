@@ -46,12 +46,12 @@ void Yams::launchGame(){
 }
 
 void Yams::setPlayers(){
-    std::string pName = "";
+    std::string pName = "";std::cout << "here";
     while(players.empty() && pName != ""){
-        std::cout << "Enter player's name (nothing to stop adding players) : ";
+        std::cout << "Enter player's name (\"stop\" to stop adding players) : ";
         std::cin >> pName;
 
-        if(pName != ""){
+        if(pName != "stop"){
             Player p(pName);
             players.push_back(p);
         }
@@ -60,6 +60,14 @@ void Yams::setPlayers(){
 }
 
 void Yams::playTurn(){
+    Player& currentPlayer = *ITcurrentPlayer;
+    DiceSet playerDiceSet;
+    playerDiceSet = Roll::rollDices();
+
+    std::cout << "Player " << currentPlayer.getName() << " roll your dices (tap enter).";
+    std::cin.get();
+    for(int i = 0 ; i < 5 ; i++)
+        std::cout << playerDiceSet.dices[i] << " ";
     
 }
 

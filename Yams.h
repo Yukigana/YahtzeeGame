@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "Player.h"
+#include "Roll.h"
 
 class Yams{
     std::list<Player> players;

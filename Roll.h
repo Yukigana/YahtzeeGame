@@ -2,9 +2,9 @@
 #define ROLL_H
 
 class DiceSet{
+    public:
     int dices[5];
     bool locks[5];
-    public:
 
 };
 
