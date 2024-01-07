@@ -3,7 +3,14 @@
 Yams::Yams() : finished(false), ITcurrentPlayer(players.begin()){
     
 }
+/*
+Yams::~Yams(){
+    while(figures.~list){
 
+    }
+    delete(figures);
+}
+*/
 void Yams::launchGame(){
     std::cout << "| =  =  =  =  =  =  =  =  ===  YAMS  ===  =  =  =  =  =  =  =  = |\n";
     std::cout << "Welcome to the Yams' game !\n\nDo you want to display te rules before playing ? (Y to display)\n";
@@ -37,41 +44,64 @@ void Yams::launchGame(){
 
     setPlayers();
     ITcurrentPlayer = players.begin();
+    
+    for (int i = 0; i < 13; ++i) {
+        //ITcurrentPlayer->playTurn();
+        //++ITcurrentPlayer;
+        for (Player p : players) {
+            p.playTurn();
+        }
+    }
+    
+    std::string winnerName = "";
+    int winnerScore = 0;
 
+    for (Player p : players) {
+        if (winnerScore < p.getScore()) {
+            winnerScore = p.getScore();
+            winnerName = p.getName();
+        }
+    }
+    
+    std::cout << "The winner is " << winnerName << ", with " << winnerScore << " points !" << std::endl;
+    /*
     int turnNb = players.size();
     for(int i = 0 ; i < turnNb ; i++){
         playTurn();
         ++ITcurrentPlayer;
-    }
+    }*/
 }
 
 void Yams::setPlayers(){
-    std::string pName = "";std::cout << "here";
-    while(players.empty() && pName != ""){
+    std::string pName = ""; int difficulty = 0; std::cout << "here";
+    bool stop = false;
+    while(stop != true){
         std::cout << "Enter player's name (\"stop\" to stop adding players) : ";
         std::cin >> pName;
 
-        if(pName != "stop"){
-            Player p(pName);
+        if (pName != "stop") {
+            bool valid = false;
+            do {
+                std::cout << "Enter player's difficulty 1.Easy 2.Medium 3.Hard 4.Hardcore (enter difficulty's index): ";
+                std::cin >> difficulty;
+                if (difficulty > 0 && difficulty <= 4) valid = true;
+                else std::cout << "Index isn't valid." << std::endl;
+            } while (!valid);
+
+            Player p(pName, difficulty);
             players.push_back(p);
         }
+        else stop = true;
     }
     
 }
 
 void Yams::playTurn(){
     Player& currentPlayer = *ITcurrentPlayer;
-    DiceSet playerDiceSet;
-    playerDiceSet = Roll::rollDices();
-
-    std::cout << "Player " << currentPlayer.getName() << " roll your dices (tap enter).";
-    std::cin.get();
-    for(int i = 0 ; i < 5 ; i++)
-        std::cout << playerDiceSet.dices[i] << " ";
+    currentPlayer.playTurn();
     
 }
 
 void Yams::saveGame(){
     
 }
-

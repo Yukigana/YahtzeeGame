@@ -9,8 +9,9 @@ using namespace std;
 
 int main()
 {
-    Yams y;
-    y.launchGame();
-    cout << "Hello World!" << endl;
+    Yams* yams = new Yams();
+    yams->launchGame();
+
     return 0;
 }
+

@@ -7,18 +7,24 @@
 
 #include "Player.h"
 #include "Roll.h"
+#include "Figure.h"
 
 class Yams{
     std::list<Player> players;
     std::list<Player>::iterator ITcurrentPlayer;
+    
+    std::list<Figure*> figures;
 
     bool finished;
 
     void setPlayers();
     void saveGame();
     void playTurn();
+
 public:
     Yams();
+    //~Yams();
+    
     void launchGame();
 };
 
