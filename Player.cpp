@@ -27,19 +27,23 @@ void Player::playTurn()const {
     
     Roll::rollDices(diceSet);
 
-    // Choix joueur soit relancer dés (donc sélection dés à garder) soit sélection figure à jouer
+    // Choix joueur soit relancer dï¿½s (donc sï¿½lection dï¿½s ï¿½ garder) soit sï¿½lection figure ï¿½ jouer
     bool valid = false;
     int choose = 0;
     int cptReroll = 0;
     do {
+        std::cout<<std::endl;
+        std::cout << " = = = = = = = = = = = " << this->name << "'s turn = = = = = = = = = = = ";
+        std::cout<<std::endl;
         figureManagement->print(diceSet->getDices());
+        std::cout<<std::endl;
         diceSet->print();
-        std::cout << "1.Reroll your dices or 2.select a figure : (enter 1 or 2)";
+        std::cout << "\n1.Reroll your dices or 2.select a figure : (enter 1 or 2)";
         std::cin >> choose;
         switch (choose)
         {
         case 1:
-            // Verrouillage et relance des dés
+            // Verrouillage et relance des dï¿½s
             diceSet->lockDices();
             ++cptReroll;
             if (cptReroll == 3) std::cout << "You can no longer reroll. You have to choose a figure to play. ";
@@ -47,13 +51,14 @@ void Player::playTurn()const {
             
 
         case 2:
-            diceSet->resetDices(); // Déverrouillage de tous les dés
+            diceSet->resetDices(); // Dï¿½verrouillage de tous les dï¿½s
 
             // Choix figure
             std::cout << "Enter index of the figure you want play :";
             std::cin >> choose;
 
             if (figureManagement->canPlayFigure(choose)) {
+                // save
                 figureManagement->playFigure(diceSet->getDices(), choose);
                 valid = true;
             }

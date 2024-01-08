@@ -22,7 +22,6 @@ public:
 };
 
 class Roll{
-    
     Roll();
     public:
 

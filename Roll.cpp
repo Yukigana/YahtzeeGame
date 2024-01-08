@@ -17,7 +17,7 @@ DiceSet::~DiceSet() {
 }
 
 void DiceSet::print()const {
-    std::cout << "Dices : ";
+    std::cout << "\tDices : ";
     for (int i = 0; i < 5; ++i) {
         std::cout << "[" << dices[i] << "] ";
     }
@@ -25,7 +25,7 @@ void DiceSet::print()const {
 }
 
 void DiceSet::lockDices() {
-    // Choix entre verrouiller ou déverrouiller dé
+    // Choix entre verrouiller ou dï¿½verrouiller dï¿½
     int choose = 0;
     bool valid = false;
     do {
@@ -34,7 +34,7 @@ void DiceSet::lockDices() {
             std::cout << i << ":" << " [" << dices[i] << "] " << (locks[i] ? "(lock)" : "") << std::endl;
         }
         std::cout << std::endl;
-        std::cout << "1.Lock dice or 2.Unlock dice or 3.Reroll? (enter number)";
+        std::cout << "1.Lock dice or 2.Unlock dice or 3.Reroll? (enter number) : ";
         std::cin >> choose;
         switch (choose)
         {

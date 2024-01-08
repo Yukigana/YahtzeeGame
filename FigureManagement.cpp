@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "FigureManagement.h"
 
 FigureManagement::FigureManagement(Difficulty d, const int l) {
@@ -121,7 +122,7 @@ HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     figuresHardcore[12] = new Chance("Chance", false);
 
 
-    //Mélange des figures
+    //Mï¿½lange des figures
     std::srand(std::time(nullptr));
     Figure* a = nullptr;
     int index = 0;

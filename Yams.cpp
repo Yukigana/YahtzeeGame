@@ -76,7 +76,7 @@ void Yams::setPlayers(){
     std::string pName = ""; int difficulty = 0; std::cout << "here";
     bool stop = false;
     while(stop != true){
-        std::cout << "Enter player's name (\"stop\" to stop adding players) : ";
+        std::cout << "\nEnter player's name (\"stop\" to stop adding players) : ";
         std::cin >> pName;
 
         if (pName != "stop") {
