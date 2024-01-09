@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Player.h"
+#include "Save.h"
 
 Player::Player(std::string name, const int& difficulty): name(name), figureManagement(nullptr), diceSet(new DiceSet()) {
     switch (difficulty)
@@ -15,6 +16,7 @@ Player::Player(std::string name, const int& difficulty): name(name), figureManag
 
     case 4:
         figureManagement = new HardcoreFigure();
+        SaveYams::saveHardcoreOrder(figureManagement);
         break;
 
     default:
@@ -61,6 +63,7 @@ void Player::playTurn()const {
                 // save
                 figureManagement->playFigure(diceSet->getDices(), choose);
                 valid = true;
+                SaveYams::saveFigure(diceSet->getDices(), choose);
             }
             else std::cout << "Invalid index !" << std::endl;
             break;

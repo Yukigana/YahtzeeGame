@@ -13,16 +13,24 @@ void SaveYams::savePlayer(Player player, int difficulty){
     if (file.is_open()) {
         file << "player " << player.name << " " << difficulty <<std::endl;
         
-    } else {
-        std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
-    }
+    } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
 }
-void SaveYams::saveHardcoreOrder(){
-    
+void SaveYams::saveHardcoreOrder(FigureManagement* fm){
+    Figure** figuresToSave = fm->figures;
+    // to cout
+    //récupérer le nom des figures
+
+    //faire un constr dans le hardcore, pour pouvoir instancier en fonction du nom
 }
 
 void SaveYams::saveFigure(const int* dices, const int& nbFigure){
-
+    if (file.is_open()) {
+        file << "figure";
+        for(int i = 0 ; i < 5 ; i++)
+            file << " " << dices[i];
+        file << " " << nbFigure <<std::endl;
+        
+    } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
 }
 
 std::list<Player> SaveYams::load(){
@@ -38,10 +46,10 @@ std::list<Player> SaveYams::load(){
     //boucle sur l'ajout des joueurs
         Player p(pName, difficulty);
         loadedPlayers.push_back(p);
+
+    // remise en place de la difficulté (si difficulté = hardcore)
+
     // boucle sur l'ajout de figure
-
-    // remise en place de la difficulté
-
     */
 
    Player p("test", 4);

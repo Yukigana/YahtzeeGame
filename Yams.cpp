@@ -1,4 +1,5 @@
 #include "Yams.h"
+#include "Save.h"
 
 Yams::Yams() : finished(false), ITcurrentPlayer(players.begin()){
     
@@ -89,6 +90,7 @@ void Yams::setPlayers(){
             } while (!valid);
 
             Player p(pName, difficulty);
+            SaveYams::savePlayer(p, difficulty);
 
             players.push_back(p);
         }

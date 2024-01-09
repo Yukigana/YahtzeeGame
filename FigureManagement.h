@@ -12,23 +12,24 @@ enum class Difficulty
 class FigureManagement
 {
 private :
-	Difficulty difficulty; // Indice de difficulté
+	Difficulty difficulty; // Indice de difficultï¿½
 
-	int score; // Score des figures joué
+	int score; // Score des figures jouï¿½
+	friend class SaveYams;
 
 protected :
-	Figure** figures; // Liste des figures dans l'ordre à jouer
+	Figure** figures; // Liste des figures dans l'ordre ï¿½ jouer
 
-	int cpt; // Permet de savoir quel figures débloquer
+	int cpt; // Permet de savoir quel figures dï¿½bloquer
 	int lock; // Limite des figures jouables
 
 public :
 	FigureManagement(Difficulty d, const int l);
 
 	void print()const; // Affiche les figures jouables
-	void print(const int* dices)const; // Affiche les figures jouables avec leur score correspondant aux dés indiqués
+	void print(const int* dices)const; // Affiche les figures jouables avec leur score correspondant aux dï¿½s indiquï¿½s
 
-	void playFigure(const int* dices, const int& nbFigure); // Joue la figure choisi par le joueur avec les dés du joueur
+	void playFigure(const int* dices, const int& nbFigure); // Joue la figure choisi par le joueur avec les dï¿½s du joueur
 
 	bool canPlayFigure(const int& nbFigure)const;
 	

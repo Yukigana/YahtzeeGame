@@ -14,7 +14,7 @@ class SaveYams{
     static std::ofstream file;
 public:
     static void savePlayer(Player player, int difficulty);
-    static void saveHardcoreOrder();
+    static void saveHardcoreOrder(FigureManagement* fm);
     // sauv ordre des figures à faire en hardcore
     static void saveFigure(const int* dices, const int& nbFigure);
     static std::list<Player> load();
