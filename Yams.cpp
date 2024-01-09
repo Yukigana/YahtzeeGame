@@ -89,6 +89,7 @@ void Yams::setPlayers(){
             } while (!valid);
 
             Player p(pName, difficulty);
+
             players.push_back(p);
         }
         else stop = true;
@@ -102,6 +103,3 @@ void Yams::playTurn(){
     
 }
 
-void Yams::saveGame(){
-    
-}

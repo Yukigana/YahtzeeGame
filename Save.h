@@ -2,17 +2,22 @@
 #define SAVE_H
 
 #include <list>
+#include <iostream>
+#include <fstream>
 #include "Player.h"
 
 class SaveYams{
-private :
-    int nbPlayer;
-
+    SaveYams();
+    ~SaveYams();
+    static const std::string FILENAME;
+    static bool cleaned;
+    static std::ofstream file;
 public:
-    static void initSave(std::list<Player> players, int difficulty);
+    static void savePlayer(Player player, int difficulty);
+    static void saveHardcoreOrder();
     // sauv ordre des figures à faire en hardcore
-    static void Save(const int* dices, const int& nbFigure);
-    static std::list<Player> Load();
+    static void saveFigure(const int* dices, const int& nbFigure);
+    static std::list<Player> load();
 };
 
 #endif // SAVE_H

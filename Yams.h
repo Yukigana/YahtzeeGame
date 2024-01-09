@@ -18,7 +18,6 @@ class Yams{
     bool finished;
 
     void setPlayers();
-    void saveGame();
     void playTurn();
 
 public:

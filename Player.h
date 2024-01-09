@@ -12,6 +12,8 @@ private :
     FigureManagement* figureManagement;
     DiceSet* diceSet;
 
+    friend class SaveYams;
+
 public:
     Player(std::string name, const int& difficulty);
     
