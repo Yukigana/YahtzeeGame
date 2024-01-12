@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include "FigureManagement.h"
+#include "Save.h"
 
 FigureManagement::FigureManagement(Difficulty d, const int l) {
 	difficulty = d;
@@ -161,20 +162,7 @@ std::string FigureManagement::getOrder(){
     }
     return s;
 }
-std::vector<std::string> split(std::string s, std::string delimiter) {
-    size_t pos_start = 0, pos_end, delim_len = delimiter.length();
-    std::string token;
-    std::vector<std::string> res;
 
-    while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
-        token = s.substr (pos_start, pos_end - pos_start);
-        pos_start = pos_end + delim_len;
-        res.push_back (token);
-    }
-
-    res.push_back (s.substr (pos_start));
-    return res;
-}
 HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Hardcore, 1) {
     Figure** figuresHardcore = new Figure * [13];
 
@@ -193,7 +181,7 @@ HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Har
     figuresHardcore[11] = new Yahtzee("Yahtzee", false);
     figuresHardcore[12] = new Chance("Chance", false);
 
-    std::vector<std::string> v = split(s, ";");
+    std::vector<std::string> v = SaveYams::split(s, ";");
     int i = 0;
     Figure** figuresHardcoreOrdered = new Figure * [13];
     for (std::string ms : v){

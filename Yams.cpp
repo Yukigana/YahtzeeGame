@@ -43,17 +43,44 @@ void Yams::launchGame(){
         std::cout << "There are 13 rounds.\n\n";
     }
 
-    setPlayers();
-    ITcurrentPlayer = players.begin();
+    std::string load = "";
+    std::cout << "Do you want to load last game ? (Y to load)\nYour game is automatically saved\n-> ";
+    std::cin >> load;
+
+    bool failedToLoad = true;
+    if(load == "Y"){
+        int turnNumber = 0;
+        players = SaveYams::load(&turnNumber);
+        if(!players.empty()){
+            failedToLoad = false;
+            int numberPlayer = players.size();
+            int balance = turnNumber % numberPlayer;
+
+            int i = 0;
+            for (Player p : players) {
+                if(i>= balance) p.playTurn();
+                i++;
+            }
+            for (int i = (turnNumber+balance)/numberPlayer; i < 13; ++i) {
+                for (Player p : players) p.playTurn();
+            }
+        }//FIN IF EMPTY
+        else{
+            std::cout << "\nFailed to load file. Launching raw game.\n";
+        }
+
+    }else if(failedToLoad){
+        setPlayers();
+        ITcurrentPlayer = players.begin();
     
-    for (int i = 0; i < 13; ++i) {
-        //ITcurrentPlayer->playTurn();
-        //++ITcurrentPlayer;
-        for (Player p : players) {
-            p.playTurn();
+        for (int i = 0; i < 13; ++i) {
+            //ITcurrentPlayer->playTurn();
+            //++ITcurrentPlayer;
+            for (Player p : players) {
+                p.playTurn();
+            }
         }
     }
-    
     std::string winnerName = "";
     int winnerScore = 0;
 
@@ -71,6 +98,7 @@ void Yams::launchGame(){
         playTurn();
         ++ITcurrentPlayer;
     }*/
+    
 }
 
 void Yams::setPlayers(){
@@ -99,9 +127,4 @@ void Yams::setPlayers(){
     
 }
 
-void Yams::playTurn(){
-    Player& currentPlayer = *ITcurrentPlayer;
-    currentPlayer.playTurn();
-    
-}
 

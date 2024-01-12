@@ -2,9 +2,26 @@
 
 const std::string SaveYams::FILENAME = "save.txt";
 bool SaveYams::cleaned = false;
+bool SaveYams::loading = false;
 std::ofstream SaveYams::file;
 
+std::vector<std::string> SaveYams::split(std::string s, std::string delimiter) {
+    size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+    std::string token;
+    std::vector<std::string> res;
+
+    while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
+        token = s.substr (pos_start, pos_end - pos_start);
+        pos_start = pos_end + delim_len;
+        res.push_back (token);
+    }
+
+    res.push_back (s.substr (pos_start));
+    return res;
+}
+
 void SaveYams::savePlayer(Player player, int difficulty){
+    if(loading) return;
     if(!cleaned){
         file = std::ofstream(FILENAME, std::ofstream::out | std::ofstream::trunc);
         cleaned = true;
@@ -16,6 +33,7 @@ void SaveYams::savePlayer(Player player, int difficulty){
     } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
 }
 void SaveYams::saveHardcoreOrder(FigureManagement* fm){
+    if(loading) return;
     Figure** figuresToSave = fm->figures;
     file << fm->getOrder() << std::endl;
 
@@ -23,16 +41,45 @@ void SaveYams::saveHardcoreOrder(FigureManagement* fm){
 }
 
 void SaveYams::saveFigure(const int* dices, const int& nbFigure){
+    if(loading) return;
     if (file.is_open()) {
         file << "figure";
-        for(int i = 0 ; i < 5 ; i++)
+        for(int i = 0 ; i < 6 ; i++)
             file << " " << dices[i];
         file << " " << nbFigure <<std::endl;
         
     } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
 }
 
-std::list<Player> SaveYams::load(){
+std::list<Player> SaveYams::load(int* turns){
+    loading = true;
+    std::ifstream file(FILENAME);
+    std::list<Player> players;
+    std::list<Player>::iterator it;
+
+    std::string s = "";
+    bool b = false;
+    while(std::getline(file, s)){
+        std::vector<std::string> args = split(s, " ");
+        if(!b && args[0] == "player"){ // vérifiera le bool avant de comparer les strings ?
+            Player p(args[1], stoi(args[2]));
+            players.push_back(p);
+        }else if(args[0] == "figure"){
+            if(b){
+                b=true;
+                it = players.begin();
+            }
+            int* dices = new int[6];
+            for (int i = 0; i < 6; ++i) {
+                dices[i] = stoi(args[i+1]);
+            }
+            Player p = *it;
+            p.figureManagement->playFigure(dices, stoi(args[7]));
+        }
+    }
+
+    file.close();
+    loading = false;
     // ne peut être lancé si on a sauvegardé
     /*
     dans Yams.cpp
@@ -49,14 +96,14 @@ std::list<Player> SaveYams::load(){
     // remise en place de la difficulté (si difficulté = hardcore)
 
     // boucle sur l'ajout de figure
-    */
+    
 
    Player p("test", 4);
    int* dices;
-   p.figureManagement->playFigure(dices, 5);
+   p.figureManagement->playFigure(dices, 5);*/
 
 }
 
 SaveYams::~SaveYams(){
-    if(cleaned) file.close();
+    if(cleaned /*&& file.is_open()*/) file.close();
 }
