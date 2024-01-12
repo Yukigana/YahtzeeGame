@@ -37,6 +37,8 @@ public :
 
 	int getCpt()const { return cpt; };
 	int getScore()const { return score; };
+
+	std::string getOrder();
 };
 
 class EasyFigure : public FigureManagement {
@@ -81,6 +83,7 @@ private:
 
 public:
 	HardcoreFigure();
+	HardcoreFigure(std::string s);
 
 	void unlockFigure()const override {
 		figures[cpt]->unlock();

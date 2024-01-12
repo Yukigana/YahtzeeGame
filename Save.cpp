@@ -17,8 +17,7 @@ void SaveYams::savePlayer(Player player, int difficulty){
 }
 void SaveYams::saveHardcoreOrder(FigureManagement* fm){
     Figure** figuresToSave = fm->figures;
-    // to cout
-    //récupérer le nom des figures
+    file << fm->getOrder() << std::endl;
 
     //faire un constr dans le hardcore, pour pouvoir instancier en fonction du nom
 }
