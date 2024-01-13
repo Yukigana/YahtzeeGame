@@ -66,9 +66,7 @@ void Yams::launchGame(){
 
     }else if(failedToLoad){
         setPlayers();
-                std::cout << "launchGame here";
         ITcurrentPlayer = players.begin();
-                std::cout << "launchGame here 2";
     
         for (int i = 0; i < 13; ++i) {
             for (Player p : players) {

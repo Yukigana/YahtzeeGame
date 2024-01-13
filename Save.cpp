@@ -71,8 +71,10 @@ std::list<Player> SaveYams::load(int* turns){
     while(std::getline(file, s)){
         std::vector<std::string> args = split(s, " ");
         if(!b && args[0] == "player"){ // vérifiera le bool avant de comparer les strings ?
-            Player p(args[1], stoi(args[2]));
-            if(stoi((args[2])) == 4){
+            int difficulty=stoi(args[2]);
+
+            Player p(args[1], difficulty);
+            if(difficulty == 4){
                 delete p.figureManagement;
                 p.figureManagement = new HardcoreFigure(hardcore);
             }

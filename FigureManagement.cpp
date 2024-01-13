@@ -138,7 +138,7 @@ HardFigure::~HardFigure(){}
 HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     Figure** figuresHardcore = new Figure * [13];
 
-    figuresHardcore[0] = new Classic<1>("One");
+    figuresHardcore[0] = new Classic<1>("One", false);
     figuresHardcore[1] = new Classic<2>("Two", false);
     figuresHardcore[2] = new Classic<3>("Three", false);
     figuresHardcore[3] = new Classic<4>("Four", false);
@@ -166,7 +166,6 @@ HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     }
 
     figuresHardcore[0]->unlock();
-
     this->figures = figuresHardcore;
 }
 
@@ -174,7 +173,7 @@ HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
 HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Hardcore, 1) {
     Figure** figuresHardcore = new Figure * [13];
 
-    figuresHardcore[0] = new Classic<1>("One");
+    figuresHardcore[0] = new Classic<1>("One", false);
     figuresHardcore[1] = new Classic<2>("Two", false);
     figuresHardcore[2] = new Classic<3>("Three", false);
     figuresHardcore[3] = new Classic<4>("Four", false);
@@ -190,6 +189,7 @@ HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Har
     figuresHardcore[12] = new Chance("Chance", false);
 
     std::vector<std::string> v = SaveYams::split(s, ";");
+    v.pop_back(); // on enlève le dernier string parce qu'il est vide
     int i = 0;
     Figure** figuresHardcoreOrdered = new Figure * [13];
     for (std::string ms : v){
@@ -197,8 +197,11 @@ HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Har
         figuresHardcoreOrdered[i] = figuresHardcore[n];
         i++;
     }
-    delete[](figuresHardcore);
+    std::cout << "\nici ?????????\n"; // getOrder 13;12;9;13;4;2;11;3;1;7;5;10;6; pas tout
+    figuresHardcoreOrdered[0]->unlock(); // pas de valeur dedans
     this->figures = figuresHardcoreOrdered;
+    delete[](figuresHardcore);
+    std::cout << "\n\ndebug " << v.size() << "\n\n";
 }
 
 HardcoreFigure::~HardcoreFigure() {}

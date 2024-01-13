@@ -26,11 +26,11 @@ Player::Player(std::string name, const int& difficulty): name(name), figureManag
 }
 
 Player::~Player() {
-    delete(figureManagement);
+    //delete(figureManagement);
 }
 
 void Player::playTurn()const {
-    
+    diceSet->print();
     Roll::rollDices(diceSet);
 
     // Choix joueur soit relancer d�s (donc s�lection d�s � garder) soit s�lection figure � jouer
