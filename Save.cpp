@@ -62,6 +62,7 @@ std::list<Player> SaveYams::load(int* turns){
     std::ifstream file(FILENAME);
     std::list<Player> players;
     std::list<Player>::iterator it;
+    *turns = 0;
 
     std::string s = "", hardcore = "";
     bool b = false; // pourpas comparer les strings à chaque fois
@@ -83,12 +84,17 @@ std::list<Player> SaveYams::load(int* turns){
             if(!b){
                 b=true;
                 it = players.begin();
-            }
+            }else if(*turns % players.size() != 0){ // j'ai fait comme j'ai pu pour sortir
+                ++it;
+            }else it = players.begin();
+            // on tourne sur les joueurs tant qu'on a des lignes
+
             int* dices = new int[6];
             for (int i = 0; i < 6; ++i) {
                 dices[i] = stoi(args[i+1]);
             }
-            Player p = *it;
+            *turns += 1;
+            Player& p = *it;
             p.figureManagement->playFigure(dices, stoi(args[7]));
         }
         else hardcore = s; // sinon on a un ordre de figures qu'on mettra au prochain
@@ -96,6 +102,8 @@ std::list<Player> SaveYams::load(int* turns){
 
     file.close();
     loading = false;
+    
+    return players;
     // ne peut être lancé si on a sauvegardé
     /*
     dans Yams.cpp
