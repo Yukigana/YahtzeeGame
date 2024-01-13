@@ -80,7 +80,7 @@ std::list<Player> SaveYams::load(int* turns){
             }
             players.push_back(p);
         }else if(args[0] == "figure"){
-            if(b){
+            if(!b){
                 b=true;
                 it = players.begin();
             }

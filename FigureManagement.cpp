@@ -49,19 +49,19 @@ std::string FigureManagement::getOrder() {
         figName = figures[i]->getName();
         // on aurait du faire un type enum dans Figure
         // comme on en a pas, on a une usine à gaz
-        if (figName == "One") s += "1;";
-        else if (figName == "Two") s += "2;";
-        else if (figName == "Three") s += "3;";
-        else if (figName == "Four") s += "4;";
-        else if (figName == "Five") s += "5;";
-        else if (figName == "Six") s += "6;";
-        else if (figName == "Brelan") s += "7;";
-        else if (figName == "Squarre") s += "8;";
-        else if (figName == "Full") s += "9;";
-        else if (figName == "Small straight") s += "10;";
-        else if (figName == "Large straight") s += "11;";
-        else if (figName == "Yahtzee") s += "12;";
-        else /*if(figName == "Chance")*/ s += "13;";
+        if (figName == "One") s += "0;";
+        else if (figName == "Two") s += "1;";
+        else if (figName == "Three") s += "2;";
+        else if (figName == "Four") s += "3;";
+        else if (figName == "Five") s += "4;";
+        else if (figName == "Six") s += "5;";
+        else if (figName == "Brelan") s += "6;";
+        else if (figName == "Square") s += "7;";
+        else if (figName == "Full") s += "8;";
+        else if (figName == "Small straight") s += "9;";
+        else if (figName == "Large straight") s += "10;";
+        else if (figName == "Yahtzee") s += "11;";
+        else /*if(figName == "Chance")*/ s += "12;";
     }
     return s;
 }
@@ -197,11 +197,9 @@ HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Har
         figuresHardcoreOrdered[i] = figuresHardcore[n];
         i++;
     }
-    std::cout << "\nici ?????????\n"; // getOrder 13;12;9;13;4;2;11;3;1;7;5;10;6; pas tout
-    figuresHardcoreOrdered[0]->unlock(); // pas de valeur dedans
+    figuresHardcoreOrdered[0]->unlock();
     this->figures = figuresHardcoreOrdered;
     delete[](figuresHardcore);
-    std::cout << "\n\ndebug " << v.size() << "\n\n";
 }
 
 HardcoreFigure::~HardcoreFigure() {}

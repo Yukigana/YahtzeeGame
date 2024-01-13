@@ -46,6 +46,7 @@ void Yams::launchGame(){
     if(load == "Y"){
         int turnNumber = 0;
         players = SaveYams::load(&turnNumber);
+            std::cout << "help me";
         if(!players.empty()){
             failedToLoad = false;
             int numberPlayer = players.size();
