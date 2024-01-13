@@ -16,6 +16,7 @@ private :
 
 public:
     Player(std::string name, const int& difficulty);
+    ~Player();
     
     void playTurn()const;
     

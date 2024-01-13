@@ -49,6 +49,8 @@ void SaveYams::saveFigure(const int* dices, const int& nbFigure){
         file << " " << nbFigure <<std::endl;
         
     } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
+
+    delete[](dices);
 }
 
 std::list<Player> SaveYams::load(int* turns){

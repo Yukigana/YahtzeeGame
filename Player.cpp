@@ -25,6 +25,10 @@ Player::Player(std::string name, const int& difficulty): name(name), figureManag
     }
 }
 
+Player::~Player() {
+    delete(figureManagement);
+}
+
 void Player::playTurn()const {
     
     Roll::rollDices(diceSet);

@@ -11,6 +11,9 @@ FigureManagement::FigureManagement(Difficulty d, const int l) {
 	score = 0;
 	lock = l;
 }
+FigureManagement::~FigureManagement() {
+    delete[](figures);
+}
 
 void FigureManagement::print()const {
     for (int i = 0; i < 13; ++i) {
@@ -22,6 +25,7 @@ void FigureManagement::print(const int* dices)const {
     for (int i = 0; i < 13; ++i) {
         std::cout << i << " : " << (figures[i]->getActivated() ? "(playable)" : "(unplayable)") << figures[i]->getName() << " : " << figures[i]->getScore(dices) << (figures[i]->getPlayed() ? "(played)" : "") << std::endl;
     }
+    delete[](dices);
 }
 
 void FigureManagement::playFigure(const int* dices, const int& nbFigure){
@@ -31,12 +35,36 @@ void FigureManagement::playFigure(const int* dices, const int& nbFigure){
     ++cpt;
 
 	unlockFigure(); // Deblocage des figures suivantes (en fonction de la difficulte)
+    delete[](dices);
 }
 
 bool FigureManagement::canPlayFigure(const int& nbFigure)const {
     return (nbFigure >= 0 && nbFigure <= 12) && figures[nbFigure]->getActivated() && !figures[nbFigure]->getPlayed();
 }
 
+std::string FigureManagement::getOrder() {
+    std::string s = "";
+    std::string figName = "";
+    for (int i = 0; i < 13; i++) {
+        figName = figures[i]->getName();
+        // on aurait du faire un type enum dans Figure
+        // comme on en a pas, on a une usine à gaz
+        if (figName == "One") s += "1;";
+        else if (figName == "Two") s += "2;";
+        else if (figName == "Three") s += "3;";
+        else if (figName == "Four") s += "4;";
+        else if (figName == "Five") s += "5;";
+        else if (figName == "Six") s += "6;";
+        else if (figName == "Brelan") s += "7;";
+        else if (figName == "Squarre") s += "8;";
+        else if (figName == "Full") s += "9;";
+        else if (figName == "Small straight") s += "10;";
+        else if (figName == "Large straight") s += "11;";
+        else if (figName == "Yahtzee") s += "12;";
+        else /*if(figName == "Chance")*/ s += "13;";
+    }
+    return s;
+}
 
 
 
@@ -61,6 +89,7 @@ EasyFigure::EasyFigure(): FigureManagement(Difficulty::Easy, 12) {
 
     this->figures = figuresEasy;
 }
+EasyFigure::~EasyFigure(){}
 
 MediumFigure::MediumFigure() : FigureManagement(Difficulty::Medium, 6) {
     Figure** figuresEasy = new Figure * [13];
@@ -82,6 +111,7 @@ MediumFigure::MediumFigure() : FigureManagement(Difficulty::Medium, 6) {
 
     this->figures = figuresEasy;
 }
+MediumFigure::~MediumFigure(){}
 
 HardFigure::HardFigure() : FigureManagement(Difficulty::Hard, 1) {
     Figure** figuresEasy = new Figure * [13];
@@ -103,6 +133,7 @@ HardFigure::HardFigure() : FigureManagement(Difficulty::Hard, 1) {
 
     this->figures = figuresEasy;
 }
+HardFigure::~HardFigure(){}
 
 HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     Figure** figuresHardcore = new Figure * [13];
@@ -123,7 +154,7 @@ HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     figuresHardcore[12] = new Chance("Chance", false);
 
 
-    //M�lange des figures
+    //Melange des figures
     std::srand(std::time(nullptr));
     Figure* a = nullptr;
     int index = 0;
@@ -139,29 +170,6 @@ HardcoreFigure::HardcoreFigure() : FigureManagement(Difficulty::Hardcore, 1) {
     this->figures = figuresHardcore;
 }
 
-std::string FigureManagement::getOrder(){
-    std::string s = "";
-    std::string figName = "";
-    for(int i = 0 ; i < 13 ; i++){
-        figName = figures[i]->getName();
-        // on aurait du faire un type enum dans Figure
-        // comme on en a pas, on a une usine à gaz
-        if(figName == "One") s += "1;";
-        else if(figName == "Two") s += "2;";
-        else if(figName == "Three") s += "3;";
-        else if(figName == "Four") s += "4;";
-        else if(figName == "Five") s += "5;";
-        else if(figName == "Six") s += "6;";
-        else if(figName == "Brelan") s += "7;";
-        else if(figName == "Squarre") s += "8;";
-        else if(figName == "Full") s += "9;";
-        else if(figName == "Small straight") s += "10;";
-        else if(figName == "Large straight") s += "11;";
-        else if(figName == "Yahtzee") s += "12;";
-        else /*if(figName == "Chance")*/ s += "13;";
-    }
-    return s;
-}
 
 HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Hardcore, 1) {
     Figure** figuresHardcore = new Figure * [13];
@@ -189,6 +197,8 @@ HardcoreFigure::HardcoreFigure(std::string s) : FigureManagement(Difficulty::Har
         figuresHardcoreOrdered[i] = figuresHardcore[n];
         i++;
     }
-
+    delete[](figuresHardcore);
+    this->figures = figuresHardcoreOrdered;
 }
 
+HardcoreFigure::~HardcoreFigure() {}

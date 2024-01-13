@@ -21,7 +21,7 @@ class Yams{
 
 public:
     Yams();
-    //~Yams();
+    ~Yams();
     
     void launchGame();
 };

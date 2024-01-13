@@ -4,15 +4,14 @@
 
 class Figure
 {
-
 	std::string name;
 	bool activated;
 	bool played;
 
-
 public :
 	Figure(std::string n) : name(n), activated(true), played(false) {};
 	Figure(std::string n, const bool& a) : name(n), activated(a), played(false) {};
+	~Figure() {};
 
 	void playFigure() { played = true; };
 	void unlock() { activated = true; };
@@ -24,7 +23,7 @@ public :
 
 };
 
-
+// Pour les figures classiques (1, 2, 3, 4, 5, 6)
 template<int value>
 class Classic : public Figure {
 private :
@@ -33,6 +32,7 @@ private :
 public :
 	Classic(std::string n) : Figure(n), classicValue(value) {}
 	Classic(std::string n, const bool& activated): Figure(n, activated), classicValue(value) {}
+	~Classic();
 
 	int getScore(const int* diceValues)const override {
 		return diceValues[value - 1] * value;
@@ -45,6 +45,7 @@ class Brelan : public Figure {
 public :
 	Brelan(std::string n);
 	Brelan(std::string n, const bool& activated);
+	~Brelan();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -61,6 +62,7 @@ class Square : public Figure {
 public :
 	Square(std::string n);
 	Square(std::string n, const bool& activated);
+	~Square();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -77,6 +79,7 @@ class Full : public Figure {
 public :
 	Full(std::string n);
 	Full(std::string n, const bool& activated);
+	~Full();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -94,6 +97,7 @@ class SmallStraight : public Figure {
 public :
 	SmallStraight(std::string n);
 	SmallStraight(std::string n, const bool& activated);
+	~SmallStraight();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -125,6 +129,7 @@ class LargeStraight : public Figure {
 public :
 	LargeStraight(std::string n);
 	LargeStraight(std::string n, const bool& activated);
+	~LargeStraight();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -142,6 +147,7 @@ class Yahtzee : public Figure {
 public :
 	Yahtzee(std::string n);
 	Yahtzee(std::string n, const bool& activated);
+	~Yahtzee();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;
@@ -159,6 +165,7 @@ class Chance : public Figure {
 public :
 	Chance(std::string n);
 	Chance(std::string n, const bool& activated);
+	~Chance();
 
 	int getScore(const int* diceValues)const override {
 		int score = 0;

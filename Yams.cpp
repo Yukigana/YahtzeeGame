@@ -4,14 +4,9 @@
 Yams::Yams() : finished(false), ITcurrentPlayer(players.begin()){
     
 }
-/*
 Yams::~Yams(){
-    while(figures.~list){
-
-    }
-    delete(figures);
 }
-*/
+
 void Yams::launchGame(){
     std::cout << "| =  =  =  =  =  =  =  =  ===  YAMS  ===  =  =  =  =  =  =  =  = |\n";
     std::cout << "Welcome to the Yams' game !\n\nDo you want to display te rules before playing ? (Y to display)\n";

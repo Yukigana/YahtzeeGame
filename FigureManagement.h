@@ -25,6 +25,7 @@ protected :
 
 public :
 	FigureManagement(Difficulty d, const int l);
+	~FigureManagement();
 
 	void print()const; // Affiche les figures jouables
 	void print(const int* dices)const; // Affiche les figures jouables avec leur score correspondant aux d�s indiqu�s
@@ -46,6 +47,7 @@ private :
 
 public :
 	EasyFigure();
+	~EasyFigure();
 
 	void unlockFigure()const override {
 
@@ -57,6 +59,7 @@ private:
 
 public:
 	MediumFigure();
+	~MediumFigure();
 
 	void unlockFigure()const override {
 		if (cpt == lock) {
@@ -72,6 +75,7 @@ private:
 
 public:
 	HardFigure();
+	~HardFigure();
 
 	void unlockFigure()const override {
 		figures[cpt]->unlock();
@@ -84,6 +88,7 @@ private:
 public:
 	HardcoreFigure();
 	HardcoreFigure(std::string s);
+	~HardcoreFigure();
 
 	void unlockFigure()const override {
 		figures[cpt]->unlock();

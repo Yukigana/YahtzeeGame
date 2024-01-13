@@ -12,8 +12,8 @@ DiceSet::DiceSet() : dices(new int[5]), locks(new bool[5]) {
 };
 
 DiceSet::~DiceSet() {
-    delete(dices);
-    delete(locks);
+    delete[](dices);
+    delete[](locks);
 }
 
 void DiceSet::print()const {
