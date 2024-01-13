@@ -25,8 +25,7 @@ void SaveYams::savePlayer(Player player, int difficulty){
     if(!cleaned){
         file = std::ofstream(FILENAME, std::ofstream::out | std::ofstream::trunc);
         cleaned = true;
-    }  
-    
+    }
     if (file.is_open()) {
         file << "player " << player.name << " " << difficulty <<std::endl;
         
@@ -34,13 +33,19 @@ void SaveYams::savePlayer(Player player, int difficulty){
 }
 void SaveYams::saveHardcoreOrder(FigureManagement* fm){
     if(loading) return;
-    Figure** figuresToSave = fm->figures;
-    file << fm->getOrder() << std::endl;
+    if(!cleaned){ // SavePlayer s'active après le saveHardcoreOrder (s'il y en a un)
+        file = std::ofstream(FILENAME, std::ofstream::out | std::ofstream::trunc);
+        cleaned = true;
+    }
+    if (file.is_open()){
+        file << fm->getOrder() << std::endl;
+    }else std::cerr << "/!\\Error file " + FILENAME + " is not open.\n";
 
     //faire un constr dans le hardcore, pour pouvoir instancier en fonction du nom
 }
 
 void SaveYams::saveFigure(const int* dices, const int& nbFigure){
+    std::cout << "saveFigure here";
     if(loading) return;
     if (file.is_open()) {
         file << "figure";
@@ -49,7 +54,6 @@ void SaveYams::saveFigure(const int* dices, const int& nbFigure){
         file << " " << nbFigure <<std::endl;
         
     } else std::cerr << "Erreur lors de l'ouverture du fichier." << std::endl;
-
     delete[](dices);
 }
 
@@ -59,12 +63,19 @@ std::list<Player> SaveYams::load(int* turns){
     std::list<Player> players;
     std::list<Player>::iterator it;
 
-    std::string s = "";
-    bool b = false;
+    std::string s = "", hardcore = "";
+    bool b = false; // pourpas comparer les strings à chaque fois
+    // lit les if de gauche à droite ?
+    // si on est rentrés une fois dans figure, il n'y aura plus
+    // d'ajout de joueur
     while(std::getline(file, s)){
         std::vector<std::string> args = split(s, " ");
         if(!b && args[0] == "player"){ // vérifiera le bool avant de comparer les strings ?
             Player p(args[1], stoi(args[2]));
+            if(stoi((args[2])) == 4){
+                delete p.figureManagement;
+                p.figureManagement = new HardcoreFigure(hardcore);
+            }
             players.push_back(p);
         }else if(args[0] == "figure"){
             if(b){
@@ -78,6 +89,7 @@ std::list<Player> SaveYams::load(int* turns){
             Player p = *it;
             p.figureManagement->playFigure(dices, stoi(args[7]));
         }
+        else hardcore = s; // sinon on a un ordre de figures qu'on mettra au prochain
     }
 
     file.close();

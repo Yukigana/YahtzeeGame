@@ -1,5 +1,3 @@
-player moi 4
-player pasmoi 1
-figure 3 0 0 1 0 1 0
-figure 2 1 0 0 1 1 8
-figure 1 1 1 1 1 0 1
+9;5;2;3;13;7;11;1;10;13;12;4;6;
+player m 4
+player mm 1

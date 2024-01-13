@@ -66,11 +66,11 @@ void Yams::launchGame(){
 
     }else if(failedToLoad){
         setPlayers();
+                std::cout << "launchGame here";
         ITcurrentPlayer = players.begin();
+                std::cout << "launchGame here 2";
     
         for (int i = 0; i < 13; ++i) {
-            //ITcurrentPlayer->playTurn();
-            //++ITcurrentPlayer;
             for (Player p : players) {
                 p.playTurn();
             }

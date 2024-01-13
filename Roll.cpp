@@ -97,6 +97,7 @@ Roll::Roll(){
 }
 
 void Roll::rollDices(DiceSet* set){
+    std::cout << "rollDices here";
     std::srand(std::time(nullptr));
 
     for (int i = 0; i < 5; ++i) {
